@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use flank129, please cite the article below."
+title: "flank129"
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/zxu69461-creator/flank129"
+authors:
+  - family-names: Xu
+    given-names: Zhida
+  - family-names: Cheng
+    given-names: Junhua
+  - family-names: Pan
+    given-names: Mengjie
+  - family-names: Chen
+    given-names: Xiaping
+  - family-names: Luo
+    given-names: Jie
+  - family-names: Zhu
+    given-names: Xiaohu
+  - family-names: Guo
+    given-names: Xingrong
+preferred-citation:
+  type: article
+  title: "Passenger 129 DNA frequently distorts knockout mouse transcriptomes and top-ranked gene signatures and can be screened from RNA-seq reads"
+  authors:
+    - family-names: Xu
+      given-names: Zhida
+    - family-names: Cheng
+      given-names: Junhua
+    - family-names: Pan
+      given-names: Mengjie
+    - family-names: Chen
+      given-names: Xiaping
+    - family-names: Luo
+      given-names: Jie
+    - family-names: Zhu
+      given-names: Xiaohu
+    - family-names: Guo
+      given-names: Xingrong
+  status: submitted

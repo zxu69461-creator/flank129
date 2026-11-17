@@ -1,0 +1,16 @@
+{
+  "title": "flank129: read the 129-strain DNA around a targeted gene from a knockout study's own RNA-seq reads",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {"name": "Xu, Zhida"},
+    {"name": "Cheng, Junhua"},
+    {"name": "Pan, Mengjie"},
+    {"name": "Chen, Xiaping"},
+    {"name": "Luo, Jie"},
+    {"name": "Zhu, Xiaohu"},
+    {"name": "Guo, Xingrong"}
+  ],
+  "keywords": ["knockout mice", "129 strain", "C57BL/6", "flanking genes", "passenger mutations", "RNA-seq", "genotyping"],
+  "description": "flank129 genotypes every sample of a knockout RNA-seq study at the single-nucleotide sites where 129S1/SvImJ, 129P2/OlaHsd and 129S5/SvEvBrd share a non-reference allele, calls 1 Mb bins as 129-carrying, and reports the segments in which every knockout and no control carries 129 alleles, with the differentially expressed genes inside them."
+}
