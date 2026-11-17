@@ -21,7 +21,7 @@ authors:
     given-names: Xingrong
 preferred-citation:
   type: article
-  title: "Passenger 129 DNA frequently distorts knockout mouse transcriptomes and top-ranked gene signatures and can be screened from RNA-seq reads"
+  title: "Passenger 129-strain DNA commonly distorts local differential expression in knockout mice and can be screened from RNA-seq reads"
   authors:
     - family-names: Xu
       given-names: Zhida

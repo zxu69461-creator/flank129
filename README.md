@@ -8,7 +8,7 @@ only in the targeted gene but in the 129 DNA around it, and genes in that flank 
 knockout. flank129 makes this visible for any study with raw reads.
 
 Requirements: Python 3 with pandas and numpy; samtools (for `count`); bcftools (for `sites`); an aligner such as HISAT2 with a GRCm38
-index.
+or GRCm39 index.
 
 ## 1. Sites (once)
 
@@ -20,9 +20,19 @@ non-reference allele (Mouse Genomes Project release REL-1505, GRCm38; 4,458,459 
 
 The VCFs are at https://ftp.ebi.ac.uk/pub/databases/mousegenomes/REL-1505-SNPs_Indels/strain_specific_vcfs/.
 
+Ready-made lists are in `sites/`, so this step can be skipped:
+
+- `sites_129_shared.GRCm38.tsv.gz`: the 4,458,459 sites above (GRCm38, as used in the paper).
+- `sites_129_shared.GRCm39.tsv.gz`: 4,456,540 of them in GRCm39 coordinates. They were converted with the UCSC mm10-to-mm39 chain and
+  kept only where the GRCm39 reference base is the site's C57BL/6 base. Sites in segments whose orientation differs between the
+  assemblies (mostly on chromosome 14) are given with their alleles on the GRCm39 forward strand. `sites_GRCm39_report.tsv` counts the
+  1,919 sites dropped, and `tools/convert_sites_grcm39.py` is the conversion.
+
+Use the list that matches the assembly your reads are aligned to, with a GTF of the same assembly in step 3.
+
 ## 2. Counts per run
 
-Align every run to GRCm38 and count the reads with the C57BL/6 and the 129 base at each site:
+Align every run to GRCm38 (or GRCm39, with the GRCm39 list) and count the reads with the C57BL/6 and the 129 base at each site:
 
     hisat2 -p 8 --no-unal -x grcm38/genome -U run.fastq | samtools sort -o run.bam - && samtools index run.bam
     flank129.py count run.bam sites_129_shared.tsv.gz run.ad.tsv.gz
