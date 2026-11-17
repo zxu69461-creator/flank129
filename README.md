@@ -72,4 +72,4 @@ in the paper, downloading, aligning and counting took about 16 machine-minutes p
 
 ## Licence and citation
 
-MIT licence (see `LICENSE`). If you use flank129, please cite the article in `CITATION.cff`.
+Archived at Zenodo: https://doi.org/10.5281/zenodo.24309333 (all versions; 1.0.0 is https://doi.org/10.5281/zenodo.24309334). MIT licence (see `LICENSE`). If you use flank129, please cite the article in `CITATION.cff`.
