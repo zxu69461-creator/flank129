@@ -7,7 +7,9 @@ assemblies (most of them in one part of chromosome 14) map to the minus strand; 
 strand. Sites whose GRCm39 base is the 129 allele (the reference changed) or anything else are dropped and counted.
 
 Usage: 23_sites_grcm39.py SITES_GRCm38.tsv.gz CHAIN.over.chain.gz GRCm39.primary_assembly.fa.gz OUT_DIR
-Writes OUT_DIR/sites_129_shared.GRCm38.tsv.gz (copy), OUT_DIR/sites_129_shared.GRCm39.tsv.gz and OUT_DIR/sites_GRCm39_report.tsv."""
+Writes OUT_DIR/<name>.GRCm38.tsv.gz (copy), OUT_DIR/<name>.GRCm39.tsv.gz and a report, <name> being the input's name without
+'.GRCm38.tsv.gz' (for the 129 list: sites_129_shared.*.tsv.gz and sites_GRCm39_report.tsv). Any list of the same format works, such as
+the other strains' lists in sites/."""
 import gzip
 import shutil
 import sys
@@ -17,6 +19,8 @@ from pyliftover import LiftOver
 
 src, chain, fasta, out = sys.argv[1], sys.argv[2], sys.argv[3], Path(sys.argv[4]); out.mkdir(parents=True, exist_ok=True)
 S = pd.read_csv(src, sep='\t', dtype={'chrom': str})
+stem = Path(src).name.split('.GRCm38')[0].split('.tsv')[0]
+report = 'sites_GRCm39_report.tsv' if stem == 'sites_129_shared' else f'{stem}_GRCm39_report.tsv'
 lo = LiftOver(chain)
 COMP = str.maketrans('ACGT', 'TGCA')
 new_pos, status, flip = [], [], []
@@ -60,9 +64,9 @@ lifted = S.status == 'lifted'
 S.loc[lifted & (S.ref39 == S.alt), 'status'] = 'reference is the 129 allele'
 S.loc[lifted & (S.ref39 != S.ref) & (S.ref39 != S.alt), 'status'] = 'other base'
 S.loc[lifted & (S.ref39 == S.ref), 'status'] = 'kept'
-rep = S.status.value_counts().rename_axis('status').reset_index(name='sites'); rep.to_csv(out / 'sites_GRCm39_report.tsv', sep='\t', index=False)
+rep = S.status.value_counts().rename_axis('status').reset_index(name='sites'); rep.to_csv(out / report, sep='\t', index=False)
 print(rep.to_string(index=False), flush=True)
 K = S[S.status == 'kept'][['chrom', 'pos39', 'ref', 'alt']].rename(columns={'pos39': 'pos'}).sort_values(['chrom', 'pos'])
-K.to_csv(out / 'sites_129_shared.GRCm39.tsv.gz', sep='\t', index=False)
-shutil.copyfile(src, out / 'sites_129_shared.GRCm38.tsv.gz')
+K.to_csv(out / f'{stem}.GRCm39.tsv.gz', sep='\t', index=False)
+if Path(src).resolve() != (out / f'{stem}.GRCm38.tsv.gz').resolve(): shutil.copyfile(src, out / f'{stem}.GRCm38.tsv.gz')
 print(f'{len(K):,} GRCm39 sites -> {out}')
